@@ -6,18 +6,39 @@
 
 <ion-content class="ion-padding" *ngIf="pokemon">
   <ion-card>
-    <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}">
+
+    <!-- Imagem oficial -->
+    <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}" />
+
+    <!-- Outra imagem (exemplo: artwork) -->
+    <img *ngIf="pokemon.sprites.other?.['official-artwork']?.front_default"
+      [src]="pokemon.sprites.other['official-artwork'].front_default" alt="{{ pokemon.name }} artwork" />
+
     <ion-card-header>
       <ion-card-title>{{ pokemon.name | titlecase }}</ion-card-title>
     </ion-card-header>
+
     <ion-card-content>
       <p><strong>Altura:</strong> {{ pokemon.height }}</p>
       <p><strong>Peso:</strong> {{ pokemon.weight }}</p>
+      <p><strong>Experiência base:</strong> {{ pokemon.base_experience }}</p>
+      <p><strong>Ordem na Pokédex:</strong> {{ pokemon.order }}</p>
+
       <p><strong>Tipos:</strong>
         <span *ngFor="let type of pokemon.types">
           {{ type.type.name }}&nbsp;
         </span>
       </p>
+
+      <p><strong>Habilidades:</strong>
+        <span *ngFor="let ability of pokemon.abilities">
+          {{ ability.ability.name }}&nbsp;
+        </span>
+      </p>
     </ion-card-content>
   </ion-card>
+  <ion-button expand="full" color="primary" routerLink="/">
+    ← Voltar para a lista
+  </ion-button>
+
 </ion-content>
