@@ -15,4 +15,9 @@
       </ion-label>
     </ion-item>
   </ion-list>
+
+  <div class="ion-text-center">
+    <ion-button (click)="previousPage()" [disabled]="offset === 0">Anterior</ion-button>
+    <ion-button (click)="nextPage()">Próxima</ion-button>
+  </div>
 </ion-content>

@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
   pokemons: any[] = [];
+  limit = 20;
+  offset = 0;
 
   constructor(private pokemonService: PokemonService, private router: Router) {}
 
@@ -31,6 +33,18 @@ export class HomePage implements OnInit {
         };
       });
     });
+  }
+
+  nextPage() {
+    this.offset += this.limit;
+    this.loadPokemons();
+  }
+
+  previousPage() {
+    if (this.offset >= this.limit) {
+      this.offset -= this.limit;
+      this.loadPokemons();
+    }
   }
 
   goToDetails(pokemonName: string) {
