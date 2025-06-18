@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Meus Favoritos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list *ngIf="favoritePokemons.length > 0; else noFavorites">
+    <ion-item *ngFor="let pokemon of favoritePokemons" (click)="goToDetails(pokemon.name)">
+      <ion-thumbnail slot="start">
+        <img [src]="pokemon.imageUrl" alt="{{ pokemon.name }}">
+      </ion-thumbnail>
+      <ion-label>
+        {{ pokemon.name }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #noFavorites>
+    <p class="ion-text-center">Nenhum Pokémon favoritado ainda.</p>
+  </ng-template>
+
+  <ion-button expand="full" color="primary" routerLink="/">
+    ← Voltar para a lista
+  </ion-button>
+</ion-content>

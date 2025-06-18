@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
 import { Router } from '@angular/router';
+import { FavoritesService } from '../services/favorites.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,11 @@ export class HomePage implements OnInit {
   limit = 20;
   offset = 0;
 
-  constructor(private pokemonService: PokemonService, private router: Router) {}
+  constructor(
+    private pokemonService: PokemonService,
+    private router: Router,
+    private favoritesService: FavoritesService
+  ) {}
 
   ngOnInit() {
     this.loadPokemons();
@@ -49,5 +54,20 @@ export class HomePage implements OnInit {
 
   goToDetails(pokemonName: string) {
     this.router.navigate(['/details', pokemonName]);
+  }
+
+  toggleFavorite(pokemon: any) {
+    if (this.favoritesService.isFavorite(pokemon.name)) {
+      this.favoritesService.removeFavorite(pokemon.name);
+    } else {
+      this.favoritesService.addFavorite({
+        name: pokemon.name,
+        imageUrl: pokemon.imageUrl,
+      });
+    }
+  }
+
+  isFavorite(pokemonName: string): boolean {
+    return this.favoritesService.isFavorite(pokemonName);
   }
 }
